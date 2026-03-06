@@ -1201,26 +1201,7 @@
       // Send auto-reply confirmation to customer
       await emailjs.send('service_qsu05lb', 'template_aebbx3s', templateParams);
 
-      // Google Calendar link
-      if (apptDate) {
-        const dateFormatted = apptDate.replace(/-/g, '');
-        let startHour = 8;
-        const timeParts = apptTime.match(/(\d+):(\d+)\s*(AM|PM)/i);
-        if (timeParts) {
-          let h = parseInt(timeParts[1]);
-          const ampm = timeParts[3].toUpperCase();
-          if (ampm === 'PM' && h !== 12) h += 12;
-          if (ampm === 'AM' && h === 12) h = 0;
-          startHour = h;
-        }
-        const startTime    = `${dateFormatted}T${String(startHour).padStart(2,'0')}0000`;
-        const endTime      = `${dateFormatted}T${String(startHour + 1).padStart(2,'0')}0000`;
-        const gcalTitle    = encodeURIComponent(`Auto Body Appt – ${fullName}`);
-        const gcalDetails  = encodeURIComponent(`Vehicle: ${vehicle}\nPhone: ${phone}\nEmail: ${email}\nDamage: ${damage}`);
-        const gcalLocation = encodeURIComponent('4444 Hickory Lane, Hillsboro, MO 63050');
-        const gcalLink     = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${gcalTitle}&dates=${startTime}/${endTime}&details=${gcalDetails}&location=${gcalLocation}`;
-        window.open(gcalLink, '_blank');
-      }
+
 
       // Show success modal
       document.getElementById('modal-name').textContent    = fullName;
